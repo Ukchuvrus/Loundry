@@ -4,9 +4,9 @@
 
 
 enum errors {
-    nullError, chemClothe, temp, chem
+    tooHot, cmemIsNotAllowed, EmtyHeap, tooHard, bleacherIsNotAllowed;
 }
-public class ClientException  extends Throwable {
+public class ClientException  extends Error {
     private errors e;
     ClientException(errors a){
         e = a;

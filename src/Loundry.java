@@ -17,6 +17,10 @@ public class Loundry {
     private Washer washer;
     private Chemist chemist;
 
+    public Secretary getSecretary() {
+        return secretary;
+    }
+
     public Washer getWasher(){
         return washer;
     }
