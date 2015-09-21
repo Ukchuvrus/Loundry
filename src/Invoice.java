@@ -42,22 +42,8 @@ public class Invoice {
         return chem;
     }
 
-    public void add( boolean color,
-             boolean auto,
-                     int Tmax,
-            boolean chem,
-            boolean delicate){
-
-        Shmot s = new Shmot() ;
-
-        s.setChem(chem);
-        s.setT(Tmax);
-        s.setChem(chem);
-        s.setAuto(auto);
-        s.setColor(color);
-        s.setDelicate(delicate);
-
-        heap.add(s);
+    public void add( Shmot a){
+        heap.add(a);
     }
 
     public void setAuto(boolean auto) {

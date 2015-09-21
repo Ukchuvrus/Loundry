@@ -4,8 +4,8 @@ import java.util.ArrayList;
  * Created by 111 on 17.09.2015.
  */
 public class Chemist extends Worker implements Chem {
-    Chemist(Loundry a){
-     l = a;
+    Chemist(){
+
     }
 
     @Override
@@ -21,32 +21,31 @@ public class Chemist extends Worker implements Chem {
 
 
 
-    private Invoice curInvoice ;
-
-    public void setCurInvoice(Invoice a){
-        curInvoice = a;
-    }
-
-    public void work(){
-        for(int i = 0; i < curInvoice.getHeap().size(); i++) {
-            if (!curInvoice.isChem() && curInvoice.getHeap().get(i).getChem()) {
-                throw new ClientException(errors.cmemIsNotAllowed);
+    public void work(Invoice a){
+        for(int i = 0; i < a.getHeap().size(); i++) {
+            if (!a.isChem() && a.getHeap().get(i).getChem()) {
+                throw new ClientException("Chem is not Allowed!");
             } else {
-                if (curInvoice.isBleacher() && curInvoice.getHeap().get(i).isColor()) {
-                    throw new ClientException(errors.bleacherIsNotAllowed);
+                if (a.isBleacher() && a.getHeap().get(i).isColor()) {
+                    throw new ClientException("Bleacher is not Allowed!");
                 } else {
-                    if (curInvoice.isBleacher()) {
+                    if (a.isBleacher()) {
                         bleach();
-                        l.getSecretary().notificationInProcess();
+                        notification();
                     } else {
                         regular();
-                        l.getSecretary().notificationInProcess();
+                        notification();
+
                     }
                 }
             }
-            l.getSecretary().notificationShmotSuccess();
+
         }
     }
 
 
+    @Override
+    public void notification() {
+        System.out.println("Chem is complete!");
+    }
 }

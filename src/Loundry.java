@@ -4,13 +4,14 @@
 public class Loundry {
 
 
-    Loundry(){
+    Loundry() {
 
-        secretary = new Secretary(this);
-        ironer = new Ironer(this);
-        washer = new Washer(this);
-        chemist = new Chemist(this);
+        secretary = new Secretary();
+        ironer = new Ironer();
+        washer = new Washer();
+        chemist = new Chemist();
     }
+
 
     public Secretary secretary;
     private Ironer ironer;
@@ -21,15 +22,24 @@ public class Loundry {
         return secretary;
     }
 
-    public Washer getWasher(){
+    public Washer getWasher() {
         return washer;
     }
 
-    public Ironer getIroner(){
-        return  ironer;
+    public Ironer getIroner() {
+        return ironer;
     }
 
-    public Chemist getChemist(){
-        return  chemist;
+    public Chemist getChemist() {
+        return chemist;
+    }
+
+
+
+    public void execute(Invoice a) {
+
+     secretary.route(a, this);
+
     }
 }
+

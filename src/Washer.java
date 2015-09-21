@@ -5,8 +5,10 @@ import java.util.ArrayList;
  */
 public class Washer extends Worker implements Wash {
 
-    Washer(Loundry a){
-        l = a;
+    Washer() {
+
+
+
     }
 
 
@@ -30,49 +32,46 @@ public class Washer extends Worker implements Wash {
 
     }
 
-    public void work(){
-        for(int i = 0; i < curInvoice.getHeap().size(); i++){
-            if (curInvoice.getHeap().get(i).getT() < curInvoice.getT()){
-                throw new ClientException(errors.tooHot);
-            }
-             else {
-                if (!curInvoice.isDelicate() && curInvoice.getHeap().get(i).isDelicate()) {
-                    throw new ClientException(errors.tooHard);
+    public void work(Invoice a) {
+        for (int i = 0; i < a.getHeap().size(); i++) {
+            if (a.getHeap().get(i).getT() < a.getT()) {
+                throw new ClientException("It's too hot!");
+            } else {
+                if (!a.isDelicate() && a.getHeap().get(i).isDelicate()) {
+                    throw new ClientException("Need delicate washing!");
                 } else {
-                    if (curInvoice.isBleacher() && curInvoice.getHeap().get(i).isColor()) {
-                        throw new ClientException(errors.bleacherIsNotAllowed);
+                    if (a.isBleacher() && a.getHeap().get(i).isColor()) {
+                        throw new ClientException("Bleacher is not allowed!");
                     } else {
-                            if (curInvoice.getHeap().get(i).isAuto()){
-                                if(curInvoice.isDelicate()){
-                                    delicateAuto();
-                                }
-                                 else {
-                                    regularAuto();
-                                }
+                        if (a.getHeap().get(i).isAuto()) {
+                            if (a.isDelicate()) {
+                                delicateAuto();
+                                notification();
+                            } else {
+                                regularAuto();
+                                notification();
                             }
-                                else{ if(curInvoice.isDelicate()){
+                        } else {
+                            if (a.isDelicate()) {
                                 delicate();
-                                l.getSecretary().notificationInProcess();
-                            }
-                            else {
+                                notification();
+
+                            } else {
                                 regular();
-                                l.getSecretary().notificationInProcess();
-                            }}
+                                notification();
+
+                            }
+                        }
                     }
                 }
             }
-            l.getSecretary().notificationShmotSuccess();
-        }
 
         }
 
-
-
-
-    private Invoice curInvoice ;
-
-    public void setCurInvoice(Invoice a){
-        curInvoice = a;
     }
 
+    @Override
+    public void notification() {
+        System.out.println("Washing complete!");
+    }
 }

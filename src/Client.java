@@ -13,7 +13,7 @@ public class Client{
     Client(){
     }
     private Invoice inv;
-  public void makeInvoice() {
+  public Invoice makeInvoice() {
       Random r = new Random();
       operation op;
       switch (r.nextInt(2)) {
@@ -29,7 +29,7 @@ public class Client{
               break;
           default: op = operation.wash;
       }
-          inv = new Invoice(op,r.nextInt(100),r.nextBoolean(), r.nextBoolean(),r.nextBoolean());
+          return inv = new Invoice(op,r.nextInt(100),r.nextBoolean(), r.nextBoolean(),r.nextBoolean());
 
   }
 
@@ -39,17 +39,11 @@ public class Client{
 
     static public void main(String argv[]){
 
-     Loundry l = new Loundry();
-     Client c = new Client();
-     c.makeInvoice();
-        c.getInv().add(true,true,1488,true,true);
-        c.getInv().add(true,true,228,true,true);
-        c.getInv().setChem(true);
-        c.getInv().setDelicate(true);
-        c.getInv().setAuto(true);
-        c.getInv().setBleacher(false);
-        c.getInv().setOp(operation.chem);
-        c.getInv().setT(2077);
-        l.getSecretary().route(c.getInv());
+     Loundry loundry = new Loundry();
+     Client client = new Client();
+     Invoice invoice  =  client.makeInvoice();
+     Shmot shmot = new Shmot(true,true,1488,true,true) ;
+        invoice.add(shmot);
+        loundry.execute(invoice);
  }
 }

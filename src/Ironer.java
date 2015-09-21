@@ -4,8 +4,8 @@ import java.util.ArrayList;
  * Created by 111 on 17.09.2015.
  */
 public class Ironer extends Worker implements Iron {
-    Ironer(Loundry a) {
-        l = a;
+    Ironer() {
+
     }
 
 
@@ -19,29 +19,30 @@ public class Ironer extends Worker implements Iron {
 
     }
 
-    private Invoice curInvoice;
-
-    public void setCurInvoice(Invoice a) {
-        curInvoice = a;
-    }
 
 
-    public void work() {
-        for (int i = 0; i < curInvoice.getHeap().size(); i++) {
-            if (curInvoice.getT() > curInvoice.getHeap().get(i).getT()) {
-                throw new ClientException(errors.tooHot);
+
+    public void work(Invoice a) {
+        for (int i = 0; i < a.getHeap().size(); i++) {
+            if (a.getT() > a.getHeap().get(i).getT()) {
+                throw new ClientException("It's too hot!");
             } else {
-                if (curInvoice.isDelicate()) {
+                if (a.isDelicate()) {
                     delicate();
-                    l.getSecretary().notificationInProcess();
+                    notification();
+
                 } else {
                     regular();
-                    l.getSecretary().notificationInProcess();
+                    notification();
                 }
             }
-            l.getSecretary().notificationShmotSuccess();
         }
 
 
+    }
+
+    @Override
+    public void notification() {
+        System.out.println("Ironing complete!");
     }
 }

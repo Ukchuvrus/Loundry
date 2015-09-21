@@ -3,15 +3,8 @@
  */
 
 
-enum errors {
-    tooHot, cmemIsNotAllowed, EmtyHeap, tooHard, bleacherIsNotAllowed;
-}
-public class ClientException  extends Error {
-    private errors e;
-    ClientException(errors a){
-        e = a;
-    }
-    public errors getError(){
-        return e;
-    }
+public class ClientException  extends IllegalArgumentException {
+
+    ClientException(String a){super(a);}
+
 }

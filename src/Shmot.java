@@ -3,6 +3,15 @@
  */
  public class Shmot {
 
+    Shmot(boolean c, boolean a, int T, boolean chem, boolean d){
+
+        setChem(chem);
+        setT(T);
+        setChem(chem);
+        setAuto(a);
+        setColor(color);
+        setDelicate(delicate);
+    }
     private boolean color;
     private boolean auto;
     private int Tmax;

@@ -3,13 +3,12 @@
  */
 
 
-public class Secretary {
-
-    private Loundry l;
+public class Secretary implements Notification {
 
 
-    Secretary(Loundry a) {
-        l = a;
+    Secretary() {
+
+
     }
 
     public void notificationInProcess(){
@@ -24,10 +23,12 @@ public class Secretary {
     public void notificationShmotSuccess(){
         System.out.println("Shmot complete\n");
     }
-    public void route(Invoice a) {
+
+
+    public void route(Invoice a, Loundry l) {
         try {
             if (a.getHeap().isEmpty()) {
-                throw new ClientException(errors.EmtyHeap);
+                throw new ClientException("Heap is Empty");
             }
 
 
@@ -35,33 +36,27 @@ public class Secretary {
 
                 case wash:
 
-                    l.getWasher().setCurInvoice(a);
-                    l.getWasher().work();
+                    l.getWasher().work(a);
 
                 case chem:
-                    l.getChemist().setCurInvoice(a);
-                    l.getChemist().work();
+                    l.getChemist().work(a);
                     break;
 
                 case iron:
-                    l.getIroner().setCurInvoice(a);
-                    l.getIroner().work();
+                    l.getIroner().work(a);
                     break;
 
             }
         } catch (ClientException e) {
-            switch (e.getError()) {
-                case bleacherIsNotAllowed:
-                case tooHard:
-                case cmemIsNotAllowed:
-                case tooHot:
-                case EmtyHeap:
-                    notificationFail();
-                    //break;
+            System.out.println(e.getMessage());
             }
+        notification();
         }
-        notificationSuccess();
-    }
 
+    @Override
+    public void notification() {
+        System.out.println("Invoice complete!");
+    }
 }
+
 
